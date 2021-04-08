@@ -8,6 +8,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,14 +30,40 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+data class Question(
+    val title: String,
+    val abstract: String,
+    val tags: List<Tag>,
+)
+
+data class Tag(
+    val name: String
+)
+
+
 @Composable
 fun QuestionScreen() {
+    var question by remember {
+        mutableStateOf(Question(title = "", abstract = "", tags = emptyList()))
+    }
+
     Column(Modifier.padding(16.dp)) {
+        OutlinedTextField(value = question.title, onValueChange = { question = question.copy(title = it)}, label = { Text("Title") })
+        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedTextField(value = question.abstract, onValueChange = {question = question.copy(abstract = it)}, label = { Text("Abstract") })
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // search and select and create dropdown/modal
         OutlinedTextField(value = "", onValueChange = {}, label = { Text("Tags") })
         Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(value = "", onValueChange = {}, label = { Text("Abstract") })
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { }) {
+
+        Button(onClick = {
+            // ask for ducks that match question
+
+
+            // navigate to DiscussionScreen with list
+
+        }) {
             Text("Search")
         }
     }
@@ -84,8 +112,8 @@ fun LiveProfileScreen() {
 @Composable
 fun DefaultPreview() {
     RubberDuckerTheme {
-//        QuestionScreen()
+        QuestionScreen()
 //        DiscussionScreen()
-        LiveProfileScreen()
+//        LiveProfileScreen()
     }
 }
