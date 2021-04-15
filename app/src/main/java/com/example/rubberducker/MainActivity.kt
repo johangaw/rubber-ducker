@@ -3,6 +3,8 @@ package com.example.rubberducker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -11,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,7 +58,10 @@ fun QuestionScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         // search and select and create dropdown/modal
-        TagSelect(selectedTags = listOf(), onSelectedTagsChange = {})
+        TagSelect(selectedTags = question.tags, onSelectedTagsChange = {
+            question = question.copy( tags = it)
+        })
+
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
@@ -75,7 +81,9 @@ val staticTags = listOf(
     Tag("Java"),
     Tag("F#"),
     Tag("Mongo DB"),
+    Tag("C++"),
     Tag("C#"),
+    Tag("C"),
     Tag("Assembly"),
 )
 
@@ -90,13 +98,25 @@ fun TagSelect(selectedTags: List<Tag>, onSelectedTagsChange: (List<Tag>) -> Unit
         value = search,
         onValueChange = {
             search = it
-            visibleTags = staticTags.filter { it.name.contains(search, ignoreCase = true) }
+            visibleTags = staticTags.filter {
+                if (search.length < 3) {
+                    it.name.equals(search, ignoreCase = true)
+                } else {
+                    it.name.contains(search, ignoreCase = true)
+                }
+            }
         },
         label = { Text("Tags") }
     )
 
+    for (tag in selectedTags) {
+        Box(Modifier.padding(4.dp).background(Color.Cyan)) {
+            Text(tag.name)
+        }
+    }
+
     for (tag in visibleTags) {
-        Text(tag.name)
+        Text(tag.name, modifier = Modifier.clickable { onSelectedTagsChange(selectedTags.plus(tag)) })
     }
 }
 
