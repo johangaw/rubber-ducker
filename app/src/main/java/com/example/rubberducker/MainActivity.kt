@@ -41,6 +41,7 @@ data class Tag(
 )
 
 
+
 @Composable
 fun QuestionScreen() {
     var question by remember {
@@ -54,7 +55,7 @@ fun QuestionScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         // search and select and create dropdown/modal
-        OutlinedTextField(value = "", onValueChange = {}, label = { Text("Tags") })
+        TagSelect(selectedTags = listOf(), onSelectedTagsChange = {})
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
@@ -66,6 +67,36 @@ fun QuestionScreen() {
         }) {
             Text("Search")
         }
+    }
+}
+
+val staticTags = listOf(
+    Tag("Kotlin"),
+    Tag("Java"),
+    Tag("F#"),
+    Tag("Mongo DB"),
+    Tag("C#"),
+    Tag("Assembly"),
+)
+
+@Composable
+fun TagSelect(selectedTags: List<Tag>, onSelectedTagsChange: (List<Tag>) -> Unit) {
+    var search by remember {
+        mutableStateOf("")
+    }
+    var visibleTags by remember { mutableStateOf(listOf<Tag>()) }
+
+    OutlinedTextField(
+        value = search,
+        onValueChange = {
+            search = it
+            visibleTags = staticTags.filter { it.name.contains(search, ignoreCase = true) }
+        },
+        label = { Text("Tags") }
+    )
+
+    for (tag in visibleTags) {
+        Text(tag.name)
     }
 }
 
