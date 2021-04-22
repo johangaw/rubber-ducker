@@ -4,10 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +35,10 @@ fun addNewTag(tag: Tag, selectedTags: List<Tag>, searchState: MutableState<Strin
     searchState.value = ""
     visibleTagState.value = listOf()
     return selectedTags.plus(tag)
+}
+
+fun removeTag() {
+
 }
 
 @Composable
@@ -65,7 +70,12 @@ fun TagSelect(selectedTags: List<Tag>, onSelectedTagsChange: (List<Tag>) -> Unit
             Modifier
                 .padding(4.dp)
                 .background(Color.Cyan)) {
-            Text(tag.name)
+            Row() {
+                Text(tag.name)
+                IconButton(onClick = { removeTag() }) {
+                    Icon(Icons.Default.Delete, contentDescription = null)
+                }
+            }
         }
     }
 
@@ -81,7 +91,7 @@ fun TagSelectPreview() {
     RubberDuckerTheme {
         Column {
             var visibleTags by remember { mutableStateOf(listOf<Tag>()) }
-            TagSelect(visibleTags, {visibleTags = it})
+            TagSelect(visibleTags) { visibleTags = it }
         }
     }
 }
