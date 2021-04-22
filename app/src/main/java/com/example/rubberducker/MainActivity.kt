@@ -3,7 +3,6 @@ package com.example.rubberducker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -73,50 +72,6 @@ fun QuestionScreen() {
         }) {
             Text("Search")
         }
-    }
-}
-
-val staticTags = listOf(
-    Tag("Kotlin"),
-    Tag("Java"),
-    Tag("F#"),
-    Tag("Mongo DB"),
-    Tag("C++"),
-    Tag("C#"),
-    Tag("C"),
-    Tag("Assembly"),
-)
-
-@Composable
-fun TagSelect(selectedTags: List<Tag>, onSelectedTagsChange: (List<Tag>) -> Unit) {
-    var search by remember {
-        mutableStateOf("")
-    }
-    var visibleTags by remember { mutableStateOf(listOf<Tag>()) }
-
-    OutlinedTextField(
-        value = search,
-        onValueChange = {
-            search = it
-            visibleTags = staticTags.filter {
-                if (search.length < 3) {
-                    it.name.equals(search, ignoreCase = true)
-                } else {
-                    it.name.contains(search, ignoreCase = true)
-                }
-            }
-        },
-        label = { Text("Tags") }
-    )
-
-    for (tag in selectedTags) {
-        Box(Modifier.padding(4.dp).background(Color.Cyan)) {
-            Text(tag.name)
-        }
-    }
-
-    for (tag in visibleTags) {
-        Text(tag.name, modifier = Modifier.clickable { onSelectedTagsChange(selectedTags.plus(tag)) })
     }
 }
 
