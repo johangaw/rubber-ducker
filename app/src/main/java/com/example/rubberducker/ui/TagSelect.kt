@@ -30,22 +30,30 @@ val staticTags = listOf(
     Tag("Assembly"),
 )
 
+fun addNewTag(tag: Tag, selectedTags: List<Tag>, searchState: MutableState<String>, visibleTagState: MutableState<List<Tag>>): List<Tag> {
+    searchState.value = ""
+    visibleTagState.value = listOf()
+    return selectedTags.plus(tag)
+}
+
 @Composable
 fun TagSelect(selectedTags: List<Tag>, onSelectedTagsChange: (List<Tag>) -> Unit) {
-    var search by remember {
+    var search = remember {
         mutableStateOf("")
     }
-    var visibleTags by remember { mutableStateOf(listOf<Tag>()) }
+    var visibleTags = remember { mutableStateOf(listOf<Tag>()) }
 
     OutlinedTextField(
-        value = search,
-        onValueChange = {
-            search = it
-            visibleTags = staticTags.filter {
-                if (search.length < 3) {
-                    it.name.equals(search, ignoreCase = true)
+        value = search.value,
+        onValueChange = { enteredTag ->
+            search.value = enteredTag
+            visibleTags.value = staticTags
+                .filter { !selectedTags.contains(it) }
+                .filter {
+                if (search.value.length < 3) {
+                    it.name.equals(search.value, ignoreCase = true)
                 } else {
-                    it.name.contains(search, ignoreCase = true)
+                    it.name.contains(search.value, ignoreCase = true)
                 }
             }
         },
@@ -61,8 +69,8 @@ fun TagSelect(selectedTags: List<Tag>, onSelectedTagsChange: (List<Tag>) -> Unit
         }
     }
 
-    for (tag in visibleTags) {
-        Text(tag.name, modifier = Modifier.clickable { onSelectedTagsChange(selectedTags.plus(tag)) })
+    for (tag in visibleTags.value) {
+        Text(tag.name, modifier = Modifier.clickable { onSelectedTagsChange(addNewTag(tag, selectedTags, search, visibleTags)) })
     }
 }
 
@@ -72,7 +80,8 @@ fun TagSelect(selectedTags: List<Tag>, onSelectedTagsChange: (List<Tag>) -> Unit
 fun TagSelectPreview() {
     RubberDuckerTheme {
         Column {
-            TagSelect(staticTags.take(3), {})
+            var visibleTags by remember { mutableStateOf(listOf<Tag>()) }
+            TagSelect(visibleTags, {visibleTags = it})
         }
     }
 }
