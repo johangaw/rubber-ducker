@@ -19,6 +19,7 @@ import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.rubberducker.ui.model.Tag
 import com.example.rubberducker.ui.theme.RubberDuckerTheme
 
 val staticTags = listOf(
@@ -39,9 +40,7 @@ fun addNewTag(tag: Tag, selectedTags: List<Tag>, searchState: MutableState<Strin
 }
 
 fun removeTag(tag: Tag, selectedTags: List<Tag>): List<Tag> {
-
     return selectedTags - tag
-
 }
 
 @Composable
