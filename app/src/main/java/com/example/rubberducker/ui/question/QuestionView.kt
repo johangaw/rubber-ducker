@@ -35,7 +35,9 @@ fun QuestionView() {
 
         Button(onClick = {
             // ask for ducks that match question
-
+            // Call HTTP endpoint
+            // if ok
+            // -- Parse payload and switch to
 
             // navigate to DiscussionScreen with list
 

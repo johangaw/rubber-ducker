@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 
 @ExperimentalMaterialApi
 @Composable()
-fun DiscussionScreen() {
+fun DuckPoolView(candidates: DuckCandidates) {
     Column(Modifier.padding(16.dp)) {
         Text("Abstract asdbask jdaskd askjd aksjd asjkhdb askjd kjasdsa")
         Spacer(Modifier.height(16.dp))

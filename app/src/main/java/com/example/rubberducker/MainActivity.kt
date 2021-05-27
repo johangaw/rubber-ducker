@@ -3,18 +3,11 @@ package com.example.rubberducker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.rubberducker.ui.discussion.DiscussionScreen
-import com.example.rubberducker.ui.profile.LiveProfileScreen
-import com.example.rubberducker.ui.question.QuestionView
+import com.example.rubberducker.ui.discussion.*
 import com.example.rubberducker.ui.theme.RubberDuckerTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,6 +24,13 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+val mockCandidates = DuckCandidates(
+  listOf(
+    DuckCandidate(
+      "Kalle Anka",
+      Ranking.create(12.3f),
+      Availability.AVAILABLE)
+  ))
 
 @ExperimentalMaterialApi
 @Preview(showBackground = true, device = Devices.PIXEL_4_XL, showSystemUi = true)
@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
 fun DefaultPreview() {
     RubberDuckerTheme {
 //        QuestionView()
-        DiscussionScreen()
+        DuckPoolView(candidates = mockCandidates)
 //        LiveProfileScreen()
     }
 }
