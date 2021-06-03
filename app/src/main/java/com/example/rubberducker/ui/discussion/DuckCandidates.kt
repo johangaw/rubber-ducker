@@ -9,12 +9,16 @@ data class DuckCandidate(val name: String, val ranking: Ranking, val availabilit
 @Suppress("DataClassPrivateConstructor")
 data class Ranking private constructor(val percent: Float) {
   companion object {
-    public fun create(percent: Float): Ranking {
-      if (percent < 0 && percent > 100f)
+    fun create(percent: Float): Ranking {
+      if (percent < 0 || percent > 100f)
         return Ranking(percent)
       else
         throw IllegalArgumentException("Percent ")
     }
+  }
+
+  override fun toString(): String {
+    return percent.toString()
   }
 }
 
