@@ -10,10 +10,10 @@ data class DuckCandidate(val name: String, val ranking: Ranking, val availabilit
 data class Ranking private constructor(val percent: Float) {
   companion object {
     fun create(percent: Float): Ranking {
-      if (percent < 0 || percent > 100f)
+      if (percent > 0 || percent < 100f)
         return Ranking(percent)
       else
-        throw IllegalArgumentException("Percent ")
+        throw IllegalArgumentException("Percent has illegal value: $percent")
     }
   }
 

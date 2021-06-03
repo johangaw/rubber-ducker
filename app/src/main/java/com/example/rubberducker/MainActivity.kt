@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.rubberducker.ui.discussion.*
+import com.example.rubberducker.ui.question.QuestionView
 import com.example.rubberducker.ui.theme.RubberDuckerTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,8 +38,8 @@ val mockCandidates = DuckCandidates(
 @Composable
 fun DefaultPreview() {
     RubberDuckerTheme {
-//        QuestionView()
-        DuckPoolView(candidates = mockCandidates)
+        QuestionView()
+//        DuckPoolView(candidates = mockCandidates)
 //        LiveProfileScreen()
     }
 }
