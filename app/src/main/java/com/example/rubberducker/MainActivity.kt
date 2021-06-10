@@ -30,12 +30,12 @@ val mockCandidates = DuckCandidates(
   listOf(
     DuckCandidate(
       "Kalle Anka",
-      Ranking.create(12.3f),
-      Availability.AVAILABLE),
+      Ranking.create(52.3f),
+      Availability.UNAVAILABLE),
     DuckCandidate(
         "Arne Anka",
-        Ranking.create(49.2f),
-        Availability.UNAVAILABLE)
+        Ranking.create(29.2f),
+        Availability.AVAILABLE)
   ))
 
 @ExperimentalMaterialApi

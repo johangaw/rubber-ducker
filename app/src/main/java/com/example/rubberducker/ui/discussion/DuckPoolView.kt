@@ -28,7 +28,11 @@ fun DuckPoolView(candidates: DuckCandidates) {
         )
     }
     when (focusedCandidate.value.isPresent) {
-        true -> DuckProfilePreview(candidate = focusedCandidate.value.get())
+        true -> DuckProfilePreview(
+            candidate = focusedCandidate.value.get()
+        ) {
+            focusedCandidate.value = Optional.empty()
+        }
     }
     var candidates = candidates.candidates.sortedByDescending { it.ranking }
     Column(Modifier.padding(16.dp)) {
