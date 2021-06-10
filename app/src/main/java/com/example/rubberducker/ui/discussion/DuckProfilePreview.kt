@@ -22,6 +22,8 @@ fun DuckProfilePreview(candidate: DuckCandidate, onDismissReq: () -> Unit) {
         .background(color = Color.White, shape = RectangleShape)
         .padding(32.dp)) {
       Text(text = candidate.name)
+
+      // TODO Add data from profilescreen
     }
   }
 }

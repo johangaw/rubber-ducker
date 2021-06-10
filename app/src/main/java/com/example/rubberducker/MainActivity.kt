@@ -44,7 +44,7 @@ val mockCandidates = DuckCandidates(
 fun DefaultPreview() {
     RubberDuckerTheme {
 //        QuestionView()
-        DuckPoolView(candidates = mockCandidates)
-//        LiveProfileScreen()
+//        DuckPoolView(candidates = mockCandidates)
+        LiveProfileScreen()
     }
 }
