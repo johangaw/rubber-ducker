@@ -1,10 +1,7 @@
 package com.example.rubberducker.ui.profile
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -58,33 +55,40 @@ fun LiveProfileScreen() {
             selectedTags = tags,
             onSelectedTagsChange = { tags = if (it.isEmpty()) it else listOf(it.last()) })
 
-        RatingBar(
-            favoriteRating,
-            { favoriteRating = it },
-            {
-                Icon(
-                    painterResource(id = R.drawable.outline_star_24),
-                    contentDescription = ""
+        Card(Modifier.padding(8.dp)) {
+            Column(Modifier.padding(8.dp)) {
+                Text("Java")
+                RatingBar(
+                    favoriteRating,
+                    { favoriteRating = it },
+                    {
+                        Icon(
+                            painterResource(id = R.drawable.outline_star_24),
+                            contentDescription = ""
+                        )
+                    },
+                    {
+                        Icon(
+                            painterResource(id = R.drawable.outline_star_border_24),
+                            contentDescription = ""
+                        )
+                    }
                 )
-            },
-            {
-                Icon(
-                    painterResource(id = R.drawable.outline_star_border_24),
-                    contentDescription = ""
-                )
-            }
-        )
 
-        RatingBar(
-            knowledgeRating,
-            { knowledgeRating = it },
-            {
-                Icon(Icons.Default.Favorite, contentDescription = "")
-            },
-            {
-                Icon(Icons.Default.FavoriteBorder, contentDescription = "")
+                RatingBar(
+                    knowledgeRating,
+                    { knowledgeRating = it },
+                    {
+                        Icon(Icons.Default.Favorite, contentDescription = "")
+                    },
+                    {
+                        Icon(Icons.Default.FavoriteBorder, contentDescription = "")
+                    }
+                )
             }
-        )
+        }
+
+
 
 //        OutlinedTextField(value = "", onValueChange = {}, label={ Text("select tag")})
 //        OutlinedTextField(value = "", onValueChange = {}, label = { Text("Knowledge") })
