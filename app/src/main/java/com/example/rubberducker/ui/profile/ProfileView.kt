@@ -29,12 +29,13 @@ import com.example.rubberducker.ui.model.Tag
 @Composable
 fun RatingBar(
     rating: Int,
+    onRatingChange: (newRating: Int) -> Unit,
     activeIcon: @Composable () -> Unit,
     inactiveIcon: @Composable () -> Unit
 ) {
     Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
         repeat(5) {
-            IconButton(onClick = {}) {
+            IconButton(onClick = { onRatingChange( it + 1) }) {
                 if (it < rating) {
                     activeIcon()
 
@@ -59,6 +60,7 @@ fun LiveProfileScreen() {
 
         RatingBar(
             favoriteRating,
+            { favoriteRating = it },
             {
                 Icon(
                     painterResource(id = R.drawable.outline_star_24),
@@ -75,6 +77,7 @@ fun LiveProfileScreen() {
 
         RatingBar(
             knowledgeRating,
+            { knowledgeRating = it },
             {
                 Icon(Icons.Default.Favorite, contentDescription = "")
             },
